@@ -48,6 +48,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -67,6 +68,9 @@ public class PostgresSource extends AbstractJdbcSource<JDBCType> implements Sour
   public static final String USERNAME_KEY = "username";
 
   static final String DRIVER_CLASS = DatabaseDriver.POSTGRESQL.getDriverClassName();
+  static final Map<String, String> SSL_JDBC_PARAMETERS = ImmutableMap.of(
+      "ssl", "true",
+      "sslmode", "require");
   private List<String> schemas;
 
   public static Source sshWrappedSource() {
@@ -75,6 +79,15 @@ public class PostgresSource extends AbstractJdbcSource<JDBCType> implements Sour
 
   PostgresSource() {
     super(DRIVER_CLASS, AdaptiveStreamingQueryConfig::new, new PostgresSourceOperations());
+  }
+
+  @Override
+  protected Map<String, String> getDefaultConnectionProperties(final JsonNode config) {
+    if (JdbcUtils.useSsl(config)) {
+      return SSL_JDBC_PARAMETERS;
+    } else {
+      return Collections.emptyMap();
+    }
   }
 
   @Override
