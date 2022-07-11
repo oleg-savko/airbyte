@@ -12,4 +12,4 @@ class SourceSendgrid(YamlDeclarativeSource):
     """
 
     def __init__(self):
-        super().__init__(**{"path_to_yaml": "./source_sendgrid/sendgrid_bounces2.yaml"})
+        super().__init__(**{"path_to_yaml": "./source_sendgrid/sendgrid_bounces_andy_demo.yaml"})
