@@ -37,6 +37,7 @@ public class ClickhouseDestination extends AbstractJdbcDestination implements De
   private static final String PASSWORD = "password";
 
   static final Map<String, String> SSL_JDBC_PARAMETERS = ImmutableMap.of(
+      "socket_timeout", "3000000",
       "ssl", "true",
       "sslmode", "none");
 
@@ -95,8 +96,8 @@ public class ClickhouseDestination extends AbstractJdbcDestination implements De
     if (JdbcUtils.useSsl(config)) {
       return SSL_JDBC_PARAMETERS;
     } else {
-      // No need for any parameters if the connection doesn't use SSL
-      return new HashMap<>();
+      // No need for any parameters if the connection doesn't use SSL except socket_timeout
+      return ImmutableMap.of("socket_timeout", "3000000");
     }
   }
 
