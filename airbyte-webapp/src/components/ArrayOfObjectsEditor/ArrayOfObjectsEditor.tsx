@@ -47,7 +47,7 @@ export const ArrayOfObjectsEditor = <T extends ItemBase = ItemBase>({
   const renderEditModal = () => {
     const item = typeof editableItemIndex === "number" ? items[editableItemIndex] : undefined;
 
-    return <Modal title={<FormattedMessage id="form.add" />}>{children(item)}</Modal>;
+    return <Modal title={<FormattedMessage id={item ? "form.edit" : "form.add"} />}>{children(item)}</Modal>;
   };
 
   return (
