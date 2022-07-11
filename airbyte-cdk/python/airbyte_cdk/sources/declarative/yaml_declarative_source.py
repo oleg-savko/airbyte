@@ -34,8 +34,8 @@ class YamlDeclarativeSource(DeclarativeSource):
         with open(path_to_yaml_file, "r") as f:
             config_content = f.read()
             parsed_config = YamlParser().parse(config_content)
-            self.logger.debug(
-                "parsed YAML into declarative source",
-                extra={"path_to_yaml_file": path_to_yaml_file, "source_name": self.name, "parsed_config": parsed_config},
-            )
+            # self.logger.debug(
+            #    "parsed YAML into declarative source",
+            #    extra={"path_to_yaml_file": path_to_yaml_file, "source_name": self.name, "parsed_config": parsed_config},
+            # )
             return parsed_config
