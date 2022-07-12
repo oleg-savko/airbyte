@@ -187,6 +187,7 @@ class GoogleAnalyticsV4Stream(HttpStream, ABC):
                     "dimensions": dimensions,
                     "segments": segments,
                     "filtersExpression": filtersExpression,
+                    "includeEmptyRows": True,
                 }
             ]
         }

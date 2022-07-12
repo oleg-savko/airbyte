@@ -47,6 +47,7 @@ public class MongoDbSource extends AbstractDbSource<BsonType, MongoDatabase> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MongoDbSource.class);
 
+
   public static void main(final String[] args) throws Exception {
     final Source source = new MongoDbSource();
     LOGGER.info("starting source: {}", MongoDbSource.class);
@@ -101,8 +102,16 @@ public class MongoDbSource extends AbstractDbSource<BsonType, MongoDatabase> {
       throws Exception {
     final List<TableInfo<CommonField<BsonType>>> tableInfos = new ArrayList<>();
 
-    final Set<String> authorizedCollections = getAuthorizedCollections(database);
-    authorizedCollections.parallelStream().forEach(collectionName -> {
+    JsonNode sourceConfig = database.getSourceConfig();
+
+    Iterable<String> collections;
+    if (sourceConfig.has(MongoDbSourceUtils.COLLECTIONS)) {
+      collections = List.of(sourceConfig.get(MongoDbSourceUtils.COLLECTIONS).asText().split(","));
+    } else {
+      collections = getAuthorizedCollections(database);
+    }
+
+    for (final String collectionName : collections) {
       final MongoCollection<Document> collection = database.getCollection(collectionName);
       final List<CommonField<BsonType>> fields = MongoUtils.getUniqueFields(collection).stream().map(MongoUtils::nodeToCommonField).toList();
 

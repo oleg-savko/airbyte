@@ -115,6 +115,15 @@
     },
     "pay_premium_pkg_sales": {
       "type": ["null", "number"]
+    },
+    "virtual_card_unique_users": {
+      "type": ["null", "number"]
+    },
+    "virtual_card_event_counter": {
+      "type": ["null", "number"]
+    },
+    "virtual_card_sales": {
+      "type": ["null", "number"]
     }
   }
 }

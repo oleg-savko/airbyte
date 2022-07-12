@@ -34,6 +34,8 @@ public final class MongoDbSourceUtils {
   public static final String REPLICA_SET = "replica_set";
   public static final String AUTH_SOURCE = "auth_source";
   public static final String PRIMARY_KEY = "_id";
+  public static final String COLLECTIONS = "collections";
+
   public static final Set<BsonType> ALLOWED_CURSOR_TYPES = Set.of(DOUBLE, STRING, DOCUMENT, OBJECT_ID, DATE_TIME,
       INT32, TIMESTAMP, INT64, DECIMAL128);
 
