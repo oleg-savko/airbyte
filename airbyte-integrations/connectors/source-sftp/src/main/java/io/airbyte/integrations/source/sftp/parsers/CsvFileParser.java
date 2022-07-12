@@ -22,10 +22,16 @@ public class CsvFileParser implements SftpFileParser {
   private final CsvMapper csvMapper = new CsvMapper();
   private final ObjectMapper objectMapper = MoreMappers.initMapper();
 
+  private final char columnSeparator;
+
+  public CsvFileParser(char columnSeparator) {
+    this.columnSeparator = columnSeparator;
+  }
+
   @Override
   public List<JsonNode> parseFile(ByteArrayInputStream file) throws IOException {
     final List<JsonNode> result = new ArrayList<>();
-    final CsvSchema schema = CsvSchema.emptySchema().withHeader();
+    final CsvSchema schema = CsvSchema.emptySchema().withHeader().withColumnSeparator(this.columnSeparator);
     final MappingIterator<Map<?, ?>> mappingIterator = csvMapper.readerFor(Map.class).with(schema).readValues(file);
     final ArrayNode arrayNode = objectMapper.valueToTree(mappingIterator.readAll());
     arrayNode.forEach(result::add);
@@ -34,7 +40,7 @@ public class CsvFileParser implements SftpFileParser {
 
   @Override
   public JsonNode parseFileFirstEntity(ByteArrayInputStream file) throws IOException {
-    final CsvSchema schema = CsvSchema.emptySchema().withHeader();
+    final CsvSchema schema = CsvSchema.emptySchema().withHeader().withColumnSeparator(this.columnSeparator);
     final MappingIterator<Map<?, ?>> mappingIterator = csvMapper.readerFor(Map.class).with(schema).readValues(file);
     return objectMapper.valueToTree(mappingIterator.next());
   }
