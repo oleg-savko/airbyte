@@ -1,6 +1,7 @@
 from . import (
     daily_report,
     geo_report,
+    organic_in_app_events,
     partners_report,
     raw_data,
     retargeting_daily_report,
@@ -12,6 +13,7 @@ from . import (
 __all__ = (
     "daily_report",
     "geo_report",
+    "organic_in_app_events",
     "partners_report",
     "raw_data",
     "retargeting_daily_report",
