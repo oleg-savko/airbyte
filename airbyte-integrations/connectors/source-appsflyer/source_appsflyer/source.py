@@ -248,7 +248,7 @@ class Installs(RawDataMixin, IncrementalAppsflyerStream):
         return "installs_report/v5"
 
 class OrganicInstalls(RawDataMixin, IncrementalAppsflyerStream):
-    cursor_field = "organic_install_time"
+    cursor_field = "install_time"
 
     def path(
         self, stream_state: Mapping[str, Any] = None, stream_slice: Mapping[str, Any] = None, next_page_token: Mapping[str, Any] = None
