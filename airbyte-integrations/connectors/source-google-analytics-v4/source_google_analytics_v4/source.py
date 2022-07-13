@@ -165,6 +165,7 @@ class GoogleAnalyticsV4Stream(HttpStream, ABC):
                     "pageSize": self.page_size,
                     "metrics": metrics,
                     "dimensions": dimensions,
+                    "includeEmptyRows": True,
                 }
             ]
         }
