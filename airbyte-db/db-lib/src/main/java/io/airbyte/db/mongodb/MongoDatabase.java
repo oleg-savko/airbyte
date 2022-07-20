@@ -77,7 +77,8 @@ public class MongoDatabase extends AbstractDatabase implements AutoCloseable {
 
   public MongoCollection<Document> getCollection(final String collectionName) {
     return database.getCollection(collectionName)
-        .withReadConcern(ReadConcern.MAJORITY);
+//        .withReadConcern(ReadConcern.MAJORITY)
+        ;
   }
 
   public MongoCollection<Document> getOrCreateNewCollection(final String collectionName) {

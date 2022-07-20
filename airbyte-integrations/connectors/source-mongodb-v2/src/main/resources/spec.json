@@ -118,6 +118,14 @@
         "default": "admin",
         "examples": ["admin"],
         "order": 4
+      },
+      "collections": {
+        "title": "Collections",
+        "type": "string",
+        "description": "The collections which would be introspect.",
+        "default": "",
+        "examples": ["accounts"],
+        "order": 5
       }
     }
   }

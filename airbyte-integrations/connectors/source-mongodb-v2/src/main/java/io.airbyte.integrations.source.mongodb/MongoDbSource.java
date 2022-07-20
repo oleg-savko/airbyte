@@ -57,6 +57,7 @@ public class MongoDbSource extends AbstractDbSource<BsonType, MongoDatabase> {
   private static final String AUTH_SOURCE = "auth_source";
   private static final String TLS = "tls";
   private static final String PRIMARY_KEY = "_id";
+  private static final String COLLECTIONS = "collections";
 
   public static void main(final String[] args) throws Exception {
     final Source source = new MongoDbSource();
@@ -113,7 +114,16 @@ public class MongoDbSource extends AbstractDbSource<BsonType, MongoDatabase> {
       throws Exception {
     final List<TableInfo<CommonField<BsonType>>> tableInfos = new ArrayList<>();
 
-    for (final String collectionName : getAuthorizedCollections(database)) {
+    JsonNode sourceConfig = database.getSourceConfig();
+
+    Iterable<String> collections;
+    if (sourceConfig.has(COLLECTIONS)) {
+      collections = List.of(sourceConfig.get(COLLECTIONS).asText().split(","));
+    } else {
+      collections = getAuthorizedCollections(database);
+    }
+
+    for (final String collectionName : collections) {
       final MongoCollection<Document> collection = database.getCollection(collectionName);
       final List<CommonField<BsonType>> fields = MongoUtils.getUniqueFields(collection).stream().map(MongoUtils::nodeToCommonField).toList();
 
