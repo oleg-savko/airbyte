@@ -36,7 +36,8 @@ public class SftpCommand {
 
   public SftpCommand(SftpClient client, JsonNode config) {
     this.client = client;
-    sftpFileParserFactory = new SftpFileParserFactory();
+    sftpFileParserFactory = new SftpFileParserFactory(config.has("csv_separator") ?
+        config.get("csv_separator").asText().charAt(0) : ',');
     String commaSeparatedFileExtension = config.has("file_types") ? config.get("file_types").asText() : "";
     Set<String> selectedFileExtension = Set.of(commaSeparatedFileExtension.split(FILE_TYPE_SEPARATOR));
     selectedFileExtensions = selectedFileExtension.stream()
@@ -129,5 +130,4 @@ public class SftpCommand {
       client.connect();
     }
   }
-
 }

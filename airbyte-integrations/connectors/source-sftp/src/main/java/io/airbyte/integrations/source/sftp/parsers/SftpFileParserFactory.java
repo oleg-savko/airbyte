@@ -14,10 +14,10 @@ public class SftpFileParserFactory {
 
   private final Map<SupportedFileExtension, SftpFileParser> SFTP_FILE_PARSER_MAPPING;
 
-  public SftpFileParserFactory() {
+  public SftpFileParserFactory(char csvColumnSeparator) {
     SFTP_FILE_PARSER_MAPPING = ImmutableMap.<SupportedFileExtension, SftpFileParser>builder()
         .put(SupportedFileExtension.JSON, new JsonFileParser())
-        .put(SupportedFileExtension.CSV, new CsvFileParser())
+        .put(SupportedFileExtension.CSV, new CsvFileParser(csvColumnSeparator))
         .build();
   }
 
@@ -31,5 +31,4 @@ public class SftpFileParserFactory {
               SFTP_FILE_PARSER_MAPPING));
     }
   }
-
 }

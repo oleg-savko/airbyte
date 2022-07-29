@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 class CsvFileParserTest {
 
   public static final String LOG_FILE_CSV = "log-test.csv";
-  private final CsvFileParser csvFileParser = new CsvFileParser();
+  private final CsvFileParser csvFileParser = new CsvFileParser(',');
   private JsonNode expectedFirstNode;
   private JsonNode expectedSecondNode;
 
